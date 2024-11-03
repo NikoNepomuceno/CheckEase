@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <!-- Background Squares - Keeping your original code -->
+    
     <div class="background-container">
       <div class="square" v-for="n in 26" :key="n" :class="'square-' + n"></div>
     </div>
 
-    <!-- Modified Main Container -->
+   
     <div class="container d-flex flex-column align-items-center py-5" style="margin-left: 250px">
       <!-- Logo Section -->
       <div class="mb-4">
@@ -18,7 +18,7 @@
           <h2 class="text-start"><b>Log in to your account.</b></h2>
           <p class="text-secondary text-start mb-4">
             New to Check Ease?
-            <a href="index-signup.html" class="text-decoration-none">Sign up!</a>
+            <router-link to="/signup" class="text-decoration-none">Sign up!</router-link>
           </p>
 
           <!-- Email Input -->
@@ -73,7 +73,11 @@ export default {
         const result = response.data;
 
         if (result.success) {
-          this.$router.push('/StudentHome');
+          // Store the token in localStorage or sessionStorage
+          localStorage.setItem('userToken', result.token);
+
+          // Redirect the user based on the role
+          this.$router.push(result.redirect);
         } else {
           alert(result.message); // Display error message from server
         }
@@ -85,6 +89,8 @@ export default {
   }
 };
 </script>
+
+
 
 
 <style scoped>
