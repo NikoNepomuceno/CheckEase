@@ -32,7 +32,8 @@
         <div class="box-container col-12 mb-5">
           <h1 class="text-start mt-4"><b>Sign up</b></h1>
           <p class="text-start text-secondary">
-            Already have an account? <a href="index-login.html" class="text-decoration-none">Click here to Log in!</a>
+            Already have an account?
+            <router-link to="/login" class="text-decoration-none">Click here to Log in!</router-link>
           </p>
 
           <form @submit.prevent="submitForm" class="align-items-center w-100">
@@ -46,11 +47,6 @@
                 <label for="lastname" class="form-label">Last name</label>
                 <input type="text" id="lastname" v-model="lastname" class="form-control" required>
               </div>
-            </div>
-
-            <div class="mb-2 text-start">
-              <label for="username" class="form-label">Username</label>
-              <input type="text" id="username" v-model="username" class="form-control" required>
             </div>
 
             <div class="mb-2 text-start">
@@ -89,7 +85,6 @@ export default {
     return {
       firstname: '',
       lastname: '',
-      username: '',
       email: '',
       password: '',
       role: ''
@@ -101,7 +96,6 @@ export default {
         const response = await axios.post('http://localhost/vue-login-backend/signup.php', {
           firstname: this.firstname,
           lastname: this.lastname,
-          username: this.username,
           email: this.email,
           password: this.password,
           role: this.role
@@ -110,10 +104,11 @@ export default {
         const result = response.data;
 
         if (result.success) {
-          alert(result.message); // Display success message
-          this.$router.push('/'); // Redirect to login page after successful signup
+          // Redirect to login page after successful signup
+          this.$router.push('/login'); 
         } else {
-          alert(result.message); // Display error message from server
+          // Display error message from server
+          alert(result.message); 
         }
       } catch (error) {
         console.error('Error:', error);
@@ -123,6 +118,7 @@ export default {
   }
 };
 </script>
+
 
 <style scoped>
 body {
